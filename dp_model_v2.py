@@ -12,7 +12,7 @@ from tensorflow_privacy.privacy.analysis.compute_dp_sgd_privacy_lib import compu
 df = pd.read_csv("athletes_v2.csv")
 
 # Select numerical features only
-features = ['age', 'height', 'weight']
+features = ['deadlift', 'candj', 'snatch', 'backsq']
 target = 'total_lift'
 
 # Drop rows with missing values
@@ -58,7 +58,7 @@ model = tf.keras.Sequential([
 optimizer = tfp.DPKerasSGDOptimizer(
     l2_norm_clip=l2_norm_clip,
     noise_multiplier=noise_multiplier,
-    num_microbatches=2,
+    num_microbatches=32,
     learning_rate=learning_rate
 )
 

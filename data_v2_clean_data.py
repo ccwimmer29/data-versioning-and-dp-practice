@@ -41,6 +41,6 @@ data = data.dropna(subset=['background', 'experience', 'schedule', 'howlong', 'e
 data['total_lift'] = data['deadlift'] + data['candj'] + data['snatch'] + data['backsq']
 
 # Save cleaned data as v2
-data.to_csv("cleaned_athletes.csv", index=False)
+data.to_csv("athletes_v2.csv", index=False)
 
 print("✅ Cleaned dataset (v2) saved as 'cleaned_athletes.csv'")

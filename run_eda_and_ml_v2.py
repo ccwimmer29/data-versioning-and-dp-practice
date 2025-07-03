@@ -74,7 +74,7 @@ for DATASET_VERSION in versions:
     train_df, test_df = train_test_split(df, test_size=0.2, random_state=42)
 
     # Model features
-    features = ['age', 'height', 'weight']
+    features = ['deadlift', 'candj', 'snatch', 'backsq']
     target = 'total_lift'
 
     # Drop rows with missing values in features/target
@@ -122,7 +122,7 @@ for DATASET_VERSION in versions:
     plt.xlabel("Actual")
     plt.ylabel("Predicted")
     plt.tight_layout()
-    plt.savefig(f"pred_vs_actual_{DATASET_VERSION}.png")
+    plt.savefig(f"figures/pred_vs_actual_{DATASET_VERSION}.png")
     plt.close()
 
 # -----------------------------------------
@@ -147,8 +147,10 @@ for row in results:
 import os
 
 # Find all result figures (sorted by name for consistency)
+fig_dir = 'figures'
+
 fig_files = sorted([
-    f for f in os.listdir() if f.endswith('.png') and (
+    f for f in os.listdir(fig_dir) if f.endswith('.png') and (
         f.startswith('pred_vs_actual_') or f.startswith('eda_')
     )
 ])
@@ -156,8 +158,9 @@ fig_files = sorted([
 # Append figure markdown
 md_lines.append("\n### 📊 Visualizations:\n")
 for fig in fig_files:
-    md_lines.append(f"#### {fig.replace('_', ' ').replace('.png', '').title()}")
-    md_lines.append(f"![{fig}](./{fig})\n")
+    title = fig.replace('_', ' ').replace('.png', '').title()
+    md_lines.append(f"#### {title}")
+    md_lines.append(f"![{fig}](./figures/{fig})\n")  # <-- updated path here
 
 # Save full markdown with figures
 with open("baseline_model_summary.md", "w") as f:
